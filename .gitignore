@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/release
 
 pubspec.lock
+
+mapper.g.dart
+openapitools.json
