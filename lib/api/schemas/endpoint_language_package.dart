@@ -10,8 +10,12 @@ class EndpointLanguagePackage{
   final int vocabsPerDay;
   final int rightWords;
 
-  EndpointLanguagePackage(this.id, this.name,
-      this.foreignWordLanguage,
-      this.translatedWordLanguage,
-      this.vocabsPerDay, this.rightWords);
+  EndpointLanguagePackage({
+    required this.id,
+    required this.name,
+    required this.foreignWordLanguage,
+    required this.translatedWordLanguage,
+    required this.vocabsPerDay,
+    required this.rightWords}
+    );
 }
