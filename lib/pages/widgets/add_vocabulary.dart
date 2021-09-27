@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vocascan_mobile/constants/colors.dart';
 import 'package:vocascan_mobile/pages/widgets/rounded_button.dart';
-import 'package:vocascan_mobile/pages/widgets/rounded_input_field.dart';
 import 'package:vocascan_mobile/pages/widgets/text_field_container.dart';
 
 import 'custom_select.dart';
@@ -15,7 +14,6 @@ class AddVocabularyPopup extends StatefulWidget{
   _AddVocabularyPopupState createState() => _AddVocabularyPopupState();
 }
 
-bool _selected = false;
 List<Widget> _dynamicWidget = [];
 int _translationCount = 1;
 
