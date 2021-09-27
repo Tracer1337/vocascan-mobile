@@ -86,7 +86,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
   void validateServer(String serverUrl) async{
     if(!serverUrl.startsWith(RegExp(httpRegex))) {
-      serverUrl = "https://$serverUrl";
+      serverUrl = "https://" + serverUrl;
     }
 
     if(serverUrl.endsWith("/")) {
@@ -94,7 +94,6 @@ class _SelectServerPageState extends State<SelectServerPage> {
     }
 
     try {
-      _apiClientService.setHomeServerUrl(serverUrl);
       await _apiClientService.endpointGet<EndpointInfo>("info");
 
       setState(() {

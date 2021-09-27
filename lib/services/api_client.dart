@@ -18,18 +18,20 @@ class ApiClientService<T>{
 
   ApiClientService(this.homeServer){
     instance = this;
+    this.homeServer = this.homeServer + "/api/";
   }
 
   static ApiClientService getInstance(){
     return instance!;
   }
 
-  void setHomeServerUrl(String homeServerUrl) {
-    this.homeServer = homeServerUrl + "/api/";
-  }
-
    Future<T?> endpointGet<T>(String endpoint) async {
-    Uri url = Uri.parse(this.homeServer + endpoint);
+   Uri url = Uri.parse(this.homeServer + endpoint);
+
+    if(await _storageService.exists("token")){
+      _headers["Authorization"] = "Bearer " + (await _storageService.get("token"))!;
+    }
+
     Response response = await get(url, headers: _headers);
 
     if(response.statusCode != 200){
