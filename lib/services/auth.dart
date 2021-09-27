@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_login.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_register.dart';
@@ -47,6 +45,8 @@ class AuthService {
 
     _storageService.add("isLoggedIn", "true");
     _storageService.add("username", endpointLogin!.user.username);
+    _storageService.add("email", endpointLogin.user.username);
+    _storageService.add("token", endpointLogin.token);
 
     return endpointLogin;
   }
