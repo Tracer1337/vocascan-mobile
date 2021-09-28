@@ -49,6 +49,10 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(future: _endpointLanguagePackage,
         builder: (context, snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
+
+          }
+
+          if(!snapshot.hasData){
             return Center(child:  Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                       "assets/images/illustrations/undraw_empty.svg",
                     )
                 ),
+
               ],)
             );
           }
