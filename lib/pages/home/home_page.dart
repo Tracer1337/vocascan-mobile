@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vocascan_mobile/api/schemas/endpoint_language_package.dart';
 import 'package:vocascan_mobile/constants/colors.dart';
 import 'package:vocascan_mobile/pages/widgets/add_vocabulary.dart';
+import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   StorageService _storageService = StorageService.getInstance();
+  ApiClientService _apiClientService = ApiClientService.getInstance();
+
   String _email = "";
   String _username = "";
 
@@ -34,19 +38,40 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Future<List<EndpointLanguagePackage>?> _endpointLanguagePackage = _apiClientService
+        .endpointGet<List<EndpointLanguagePackage>>("languagePackage");
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primary,
         leading: Icon(Icons.menu),
       ),
-      body: Center(
-          child: SizedBox(
-              height: size.height * 0.25,
-              width: size.height * 0.25,
-              child: SvgPicture.asset(
-                "assets/images/illustrations/undraw_empty.svg",
-              ))),
+      body: FutureBuilder(future: _endpointLanguagePackage,
+        builder: (context, snapshot){
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Center(child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                    height: size.height * 0.25,
+                    width: size.height * 0.25,
+                    child: SvgPicture.asset(
+                      "assets/images/illustrations/undraw_empty.svg",
+                    )
+                ),
+              ],)
+            );
+          }
+
+          return Center(child: CircularProgressIndicator(
+            strokeWidth: 5,
+            backgroundColor: primary,
+            color: PrimaryLightColor,
+          ));
+        },
+
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
