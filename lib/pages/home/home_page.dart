@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vocascan_mobile/api/schemas/endpoint_language_package.dart';
 import 'package:vocascan_mobile/constants/colors.dart';
 import 'package:vocascan_mobile/pages/widgets/add_vocabulary.dart';
+import 'package:vocascan_mobile/pages/widgets/vocabulary_list_item.dart';
 import 'package:vocascan_mobile/services/api_client.dart';
 import 'package:vocascan_mobile/services/storage.dart';
 
@@ -49,7 +50,16 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(future: _endpointLanguagePackage,
         builder: (context, snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
+            var languagePackage = snapshot.data! as List<EndpointLanguagePackage>;
 
+            return Column(children: <Widget>[
+              Expanded(child: ListView.builder(itemCount: languagePackage.length,
+                  itemBuilder: (BuildContext context, int index){
+                return VocabularyListItem(headLine: languagePackage[index].name,
+
+                );
+              }))
+            ],);
           }
 
           if(!snapshot.hasData){
