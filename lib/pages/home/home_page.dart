@@ -50,16 +50,18 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(future: _endpointLanguagePackage,
         builder: (context, snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
-            var languagePackage = snapshot.data! as List<EndpointLanguagePackage>;
+            if (snapshot.data != null){
+              var languagePackage = snapshot.data as List<EndpointLanguagePackage>;
 
-            return Column(children: <Widget>[
-              Expanded(child: ListView.builder(itemCount: languagePackage.length,
-                  itemBuilder: (BuildContext context, int index){
-                return VocabularyListItem(headLine: languagePackage[index].name,
+              return Column(children: <Widget>[
+                Expanded(child: ListView.builder(itemCount: languagePackage.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return VocabularyListItem(headLine: languagePackage[index].name,
 
-                );
-              }))
-            ],);
+                      );
+                    }))
+              ],);
+            }
           }
 
           if(!snapshot.hasData){
